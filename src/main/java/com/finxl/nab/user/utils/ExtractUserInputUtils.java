@@ -1,12 +1,9 @@
 package com.finxl.nab.user.utils;
 
-import com.finxl.nab.user.dto.UserInputDto;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import java.util.stream.IntStream;
 
 /**
  * Created by svshinde83 on 25/02/2017.
@@ -14,8 +11,6 @@ import java.util.stream.IntStream;
 public class ExtractUserInputUtils {
 
     //private final static String VALID_VALUES_USER_INPUT_REGEX = "^[0-9]+[.]?[0-9]* ?[\\|*|+|-] ?[0-9]+[.]?[0-9]*$";
-    private UserInputDto dto;
-
 
     public static String extractUserInput() {
 
@@ -26,7 +21,7 @@ public class ExtractUserInputUtils {
     }
 
     public static void main(String[] args) {
-        getStringsDelimited("22-6");
+        getStringsDelimited("22*6");
     }
 
 
@@ -55,33 +50,46 @@ public class ExtractUserInputUtils {
 //        String s1 = args.substring(0,args.indexOf("/*"));
 
 
-        List<String> values = null;
+        List<String> valuesAsList = new ArrayList<>(3);
 
         boolean containsSubstraction = args.contains("-");
         if (containsSubstraction) {
-            values = Arrays.asList(args.split("-"));
-            values.add("/");
+            String[] values1 = args.split("-");
+
+            extractToList(valuesAsList, values1);
+            valuesAsList = Arrays.asList(args.split("-"));
+            valuesAsList.add("-");
         }
 
         boolean containsDivision = args.contains("/");
         if (containsDivision) {
-            values = Arrays.asList(args.split("/"));
-            values.add("-");
+            String[] valuesArray = args.split("/");
+
+            extractToList(valuesAsList, valuesArray);
+            valuesAsList.add("/");
         }
 
         boolean containsMultiplication = args.contains("*");
         if (containsMultiplication) {
-            values = Arrays.asList(args.split("/*"));
-            values.add("/*");
+            String[] valuesArray = args.split("\\*");
+            extractToList(valuesAsList, valuesArray);
+            valuesAsList.add("*");
         }
 
         boolean containsAddition = args.contains("+");
         if (containsAddition) {
-            values = Arrays.asList(args.split("/+"));
-            values.add("+");
+            String[] valuesArray = args.split("/+");
+            extractToList(valuesAsList, valuesArray);
+            valuesAsList.add("+");
         }
 
 
-        return values;
+        return valuesAsList;
+    }
+
+    private static void extractToList(List<String> valuesAsList, String[] valuesArray) {
+        for (String aValues1 : valuesArray) {
+            valuesAsList.add(aValues1);
+        }
     }
 }

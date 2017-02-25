@@ -46,16 +46,16 @@ public class MathematicalOperationsServiceImpl implements MathematicalOperations
     }
 
     public Float multiply(Float a, Float b) {
-        return MultiplicationOperationServiceImpl.multiply1(a, b);
+        return new MultiplicationOperationServiceImpl().multiply(a, b);
     }
 
     public Float subtract(Float a, Float b) {
         return SubstractionOperationServiceImpl.subtract1(a, b);
     }
 
-    public static Object getResult(List<String> userInput) {
+    public Object getResult(List<String> userInput) {
 
-        UserInputDto inputDto = new UserInputDto(userInput).fillDto();
+        UserInputDto inputDto = new UserInputDto().fillDto(userInput);
         String operation = inputDto.getOperation();
         String firstValue = inputDto.getFirstValue();
         String secondValue = inputDto.getSecondValue();
@@ -63,19 +63,19 @@ public class MathematicalOperationsServiceImpl implements MathematicalOperations
         Float result = null;
         if (operation.equals("*")) {
 
-            result = new MathematicalOperationsServiceImpl().multiply(Float.parseFloat(firstValue), Float.parseFloat(secondValue));
+            result = multiply(Float.parseFloat(firstValue), Float.parseFloat(secondValue));
 
         } else if (operation.equals("+")) {
 
-            result = new MathematicalOperationsServiceImpl().add(Float.parseFloat(firstValue), Float.parseFloat(secondValue));
+            result = add(Float.parseFloat(firstValue), Float.parseFloat(secondValue));
 
         } else if (operation.equals("-")) {
 
-            result = new MathematicalOperationsServiceImpl().subtract(Float.parseFloat(firstValue), Float.parseFloat(secondValue));
+            result = subtract(Float.parseFloat(firstValue), Float.parseFloat(secondValue));
 
         } else if (operation.equals("/")) {
 
-            result = new MathematicalOperationsServiceImpl().divide(Float.parseFloat(firstValue), Float.parseFloat(secondValue));
+            result = divide(Float.parseFloat(firstValue), Float.parseFloat(secondValue));
         }
 
         return result;

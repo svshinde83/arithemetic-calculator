@@ -19,16 +19,12 @@ public class Calculator {
 
 
     @Autowired
-    private static Validations validations;
+    private  Validations validations;
+
+    private  CalculationsResultDto result;
 
     @Autowired
-    private static CalculationsResultDto result;
-
-    @Autowired
-    private static MathematicalOperationsService service;
-
-    @Autowired
-    private static UserInteractionService userInteractionService;
+    private  UserInteractionService userInteractionService;
 
 
     /*Calculator() {
@@ -44,13 +40,13 @@ public class Calculator {
 
         Calculator getYourCalculation = (Calculator) context.getBean("getCalculations");
         getYourCalculation.getYourCalculations();
-        getYourCalculations();
+        //getYourCalculations();
     }
 
 
-    private static Object getYourCalculations() {
+    private  Object getYourCalculations() {
         while (true) {
-            new UserInteractionServiceImpl().promptUser();
+            userInteractionService.promptUser();
 
             String userInput = ExtractUserInputUtils.extractUserInput();
 
@@ -67,8 +63,8 @@ public class Calculator {
             }
 
             Float answer = (Float) OperationsService.getResult(userInput);
-            new UserInteractionServiceImpl().printAnswer(answer);
-            return null;
+            userInteractionService.printAnswer(answer);
+            return answer;
         }
     }
 

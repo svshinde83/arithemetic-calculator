@@ -12,8 +12,7 @@ public class UserInputDto {
     private String operation;
     private String secondValue;
 
-    public UserInputDto(List<String> userInput) {
-        this.userInput = userInput;
+    public UserInputDto() {
     }
 
     public String getFirstValue() {
@@ -28,7 +27,7 @@ public class UserInputDto {
         return secondValue;
     }
 
-    public UserInputDto fillDto() {
+    public UserInputDto fillDto(List<String> userInput) {
 
         firstValue = userInput.get(0);
         operation = userInput.get(2);

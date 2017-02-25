@@ -15,6 +15,7 @@ public class Validations {
     public boolean validate(String userInput, CalculationsResultDto calculationsResultDto) {
 
         if (!technicalValidations.canOperateMathematically(userInput)) {
+            calculationsResultDto = new CalculationsResultDto();
             calculationsResultDto.setHasErrors(true);
             calculationsResultDto.setErrorDescription("technical error");
             return false;
